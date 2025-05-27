@@ -1,0 +1,64 @@
+{
+    "name": "neon-dreams-theme",
+    "displayName": "Neon Dreams Theme",
+    "description": "Beautiful developer themes with soft neon colors and pastel variants - optimized for all programming languages",
+    "version": "1.2.9",
+    "publisher": "neon-dreams",
+    "engines": {
+        "vscode": "^1.60.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "keywords": [
+        "theme",
+        "dark theme",
+        "light theme",
+        "pastel",
+        "neon",
+        "color theme",
+        "syntax highlighting",
+        "developer",
+        "programming"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/neon-dreams/neon-dreams-theme.git"
+    },
+    "bugs": {
+        "url": "https://github.com/neon-dreams/neon-dreams-theme/issues"
+    },
+    "homepage": "https://github.com/neon-dreams/neon-dreams-theme#readme",
+    "license": "MIT",
+    "icon": "icon.png",
+    "galleryBanner": {
+        "color": "#1a0f1a",
+        "theme": "dark"
+    },
+    "contributes": {
+        "themes": [
+            {
+                "label": "Neon Dreams",
+                "uiTheme": "vs-dark",
+                "path": "./themes/neon-dreams-color-theme.json"
+            },
+            {
+                "label": "Neon Dreams Pastel",
+                "uiTheme": "vs-dark",
+                "path": "./themes/neon-dreams-pastel-color-theme.json"
+            }
+        ]
+    },
+    "scripts": {
+        "build": "mkdir -p dist && npx vsce package --out dist/",
+        "build:patch": "npm version patch --no-git-tag-version && npm run build",
+        "build:minor": "npm version minor --no-git-tag-version && npm run build",
+        "build:major": "npm version major --no-git-tag-version && npm run build",
+        "package": "npm run build:patch",
+        "release:patch": "npm run build:patch && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+        "release:minor": "npm run build:minor && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+        "release:major": "npm run build:major && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+        "clean": "rm -rf dist/*.vsix",
+        "clean:all": "rm -rf dist/"
+    }
+}
