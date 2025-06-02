@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Dreams Theme - Beautiful VS Code Theme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #1a0f1a;
+            --bg-secondary: #2a1f2a;
+            --bg-tertiary: #332833;
+            --keyword-pink: #dd77bb;
+            --class-purple: #cc77ff;
+            --number-purple: #dd77dd;
+            --string-teal: #77ddcc;
+            --function-blue: #88ccdd;
+            --function-blue-light: #99ddee;
+            --param-orange: #ddaa77;
+            --text-white: #f5f5f5;
+            --text-muted: #d5c5d5;
+            --accent-glow: rgba(221, 119, 187, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--keyword-pink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "{ }";
+            color: var(--function-blue);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--keyword-pink);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--keyword-pink), var(--class-purple));
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--accent-glow);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 0 6rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--keyword-pink), var(--class-purple), var(--function-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--keyword-pink);
+            color: var(--keyword-pink);
+        }
+
+        /* IDE Preview */
+        .ide-preview {
+            margin: 4rem 0;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--bg-tertiary);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .window-header {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .control.close { background: #ff5f56; }
+        .control.minimize { background: #ffbd2e; }
+        .control.maximize { background: #27ca3f; }
+
+        .tab-bar {
+            display: flex;
+            gap: 1px;
+            margin-left: 1rem;
+        }
+
+        .tab {
+            background: var(--bg-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 4px 4px 0 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .tab.active {
+            color: var(--text-white);
+        }
+
+        .code-editor {
+            padding: 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            background: var(--bg-primary);
+        }
+
+        .line-numbers {
+            color: var(--text-muted);
+            opacity: 0.6;
+            margin-right: 2rem;
+            user-select: none;
+        }
+
+        .code-line {
+            display: flex;
+        }
+
+        /* Syntax highlighting */
+        .keyword { color: var(--keyword-pink); }
+        .class-name { color: var(--class-purple); }
+        .function { color: var(--function-blue); }
+        .string { color: var(--string-teal); }
+        .number { color: var(--number-purple); }
+        .parameter { color: var(--param-orange); }
+        .comment { color: var(--text-muted); opacity: 0.7; }
+        .operator { color: var(--function-blue); }
+
+        /* Features Grid */
+        .features {
+            padding: 6rem 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-white);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--bg-tertiary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            color: var(--keyword-pink);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--bg-tertiary);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--keyword-pink);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .typing-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Neon Dreams</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#install">Install</a></li>
+                <li><a href="https://github.com/neon-dreams/neon-dreams-theme">GitHub</a></li>
+            </ul>
+            <a href="https://marketplace.visualstudio.com/items?itemName=neon-dreams.neon-dreams-theme" class="cta-button">
+                Install Now
+            </a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container fade-in">
+                <h1>Code in Neon Dreams</h1>
+                <p>Beautiful developer themes with balanced neon colors and pastel variants - optimized for Cursor IDE and all programming languages.</p>
+                <div class="hero-buttons">
+                    <a href="https://marketplace.visualstudio.com/items?itemName=neon-dreams.neon-dreams-theme" class="cta-button">
+                        Get Extension
+                    </a>
+                    <a href="https://github.com/neon-dreams/neon-dreams-theme" class="btn-secondary">
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="ide-preview fade-in">
+                <div class="window-header">
+                    <div class="window-controls">
+                        <div class="control close"></div>
+                        <div class="control minimize"></div>
+                        <div class="control maximize"></div>
+                    </div>
+                    <div class="tab-bar">
+                        <div class="tab active">example.ts</div>
+                        <div class="tab">app.js</div>
+                        <div class="tab">config.json</div>
+                    </div>
+                </div>
+                <div class="code-editor">
+                    <div class="code-line">
+                        <span class="line-numbers">1</span>
+                        <span><span class="comment">// Neon Dreams Theme Showcase</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">2</span>
+                        <span><span class="keyword">import</span> { <span class="class-name">Component</span>, <span class="function">useState</span> } <span class="keyword">from</span> <span class="string">'react'</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">3</span>
+                        <span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">4</span>
+                        <span><span class="keyword">interface</span> <span class="class-name">User</span> {</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">5</span>
+                        <span>  <span class="parameter">id</span>: <span class="class-name">number</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">6</span>
+                        <span>  <span class="parameter">name</span>: <span class="class-name">string</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">7</span>
+                        <span>  <span class="parameter">email</span>: <span class="class-name">string</span>;</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">8</span>
+                        <span>}</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">9</span>
+                        <span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">10</span>
+                        <span><span class="keyword">const</span> <span class="function">UserCard</span> <span class="operator">=</span> ({ <span class="parameter">user</span> }: { <span class="parameter">user</span>: <span class="class-name">User</span> }) <span class="operator">=></span> {</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">11</span>
+                        <span>  <span class="keyword">const</span> [<span class="parameter">isActive</span>, <span class="parameter">setIsActive</span>] <span class="operator">=</span> <span class="function">useState</span>(<span class="keyword">true</span>);</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">12</span>
+                        <span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">13</span>
+                        <span>  <span class="keyword">return</span> (</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">14</span>
+                        <span>    <span class="operator">&lt;</span><span class="class-name">div</span> <span class="parameter">className</span><span class="operator">=</span><span class="string">"user-card"</span><span class="operator">&gt;</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">15</span>
+                        <span>      <span class="operator">&lt;</span><span class="class-name">h3</span><span class="operator">&gt;</span>{<span class="parameter">user</span>.<span class="parameter">name</span>}<span class="operator">&lt;/</span><span class="class-name">h3</span><span class="operator">&gt;</span></span>
+                    </div>
+                    <div class="code-line">
+                        <span class="line-numbers">16</span>
+                        <span>      <span class="operator">&lt;</span><span class="class-name">p</span><span class="operator">&gt;</span>{<span class="parameter">user</span>.<span class="parameter">email</span>}<span class="operator">&lt;/</span><span class="class-name">p</span><span class="operator">&gt;</span><span class="typing-cursor">|</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Beautiful by Design</h2>
+                <div class="features-grid">
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Cursor Optimized</h3>
+                        <p>Special chat component colors and enhanced inlay hints optimized for Cursor's AI features and modern development workflow.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🌈</div>
+                        <h3>Balanced Colors</h3>
+                        <p>Carefully crafted pink/purple core with complementary blues, teals, and warm tones for optimal readability and eye comfort.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🔧</div>
+                        <h3>All Languages</h3>
+                        <p>Full support for JavaScript, TypeScript, Python, CSS, JSON, Markdown, HTML, JSX/TSX, and more with semantic highlighting.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">✨</div>
+                        <h3>Two Variants</h3>
+                        <p>Choose between vibrant Neon Dreams or softer Neon Dreams Pastel - both maintaining perfect contrast and readability.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Modern UI</h3>
+                        <p>Beautiful bracket pair colorization, git integration, and responsive design that works across all VS Code interfaces.</p>
+                    </div>
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Developer Focus</h3>
+                        <p>Clear error indicators, enhanced diagnostics, and thoughtful color choices that reduce eye strain during long coding sessions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Neon Dreams Theme. Open source under MIT License.</p>
+                <div class="social-links">
+                    <a href="https://github.com/neon-dreams/neon-dreams-theme">GitHub</a>
+                    <a href="https://marketplace.visualstudio.com/items?itemName=neon-dreams.neon-dreams-theme">VS Code</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html> 
