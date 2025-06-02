@@ -1,8 +1,8 @@
 {
     "name": "neon-dreams-theme",
     "displayName": "Neon Dreams Theme",
-    "description": "Besautiful developer themes with soft neon colors and pastel variants - optimized for all programming languages",
-    "version": "1.2.12",
+    "description": "Beautiful developer themes with soft neon colors and pastel variants - optimized for all programming languages",
+    "version": "1.2.13",
     "publisher": "CursorThemes",
     "engines": {
         "vscode": "^1.60.0"
