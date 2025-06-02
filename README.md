@@ -54,30 +54,10 @@ A softer dark theme with enhanced pastel colors that maintain excellent contrast
 ## 🎨 Color Palette
 
 ### Neon Dreams (Main Theme)
-- **Background**: Deep purple `#1a0f1a`
-- **Core Colors**:
-  - **Keywords**: Pink `#dd77bb`
-  - **Classes**: Bright purple `#cc77ff`
-  - **Numbers**: Purple `#dd77dd`
-- **Complementary Colors**:
-  - **Strings**: Teal `#77ddcc`
-  - **Functions**: Blue variations `#88ccdd`, `#99ddee`
-  - **Operators**: Blue `#88ccdd`
-  - **Parameters**: Warm orange `#ddaa77`
-  - **Properties**: Clean white `#f5f5f5`
+A sophisticated dark theme featuring vibrant pink and purple keywords, complemented by soothing teal strings and crisp blue functions for optimal readability and visual appeal.
 
 ### Neon Dreams Pastel
-- **Background**: Soft purple `#1f1a1f`
-- **Core Colors**:
-  - **Keywords**: Pastel pink `#e8a8c8`
-  - **Classes**: Pastel purple `#d8a8f8`
-  - **Numbers**: Pastel purple `#e8a8e8`
-- **Complementary Colors**:
-  - **Strings**: Pastel teal `#a8e8d8`
-  - **Functions**: Pastel blue variations `#a8d8e8`, `#b8e8f8`
-  - **Operators**: Pastel blue `#a8d8e8`
-  - **Parameters**: Pastel orange `#e8d8a8`
-  - **Properties**: Clean white `#f8f8f8`
+A gentler variant with softer pastel tones that maintain the same beautiful color harmony while providing a more subtle coding experience.
 
 ## 📦 Installation
 
@@ -88,21 +68,19 @@ A softer dark theme with enhanced pastel colors that maintain excellent contrast
 5. Go to File > Preferences > Color Theme
 6. Select "Neon Dreams" or "Neon Dreams Pastel"
 
-## 🛠️ Development
+## 📸 Screenshots
 
-To package this theme:
+### TypeScript
+![TypeScript Syntax Highlighting](screenshots/code_ts.png)
 
-```bash
-npm run package
-```
+### JavaScript
+![JavaScript Syntax Highlighting](screenshots/code_js.png)
 
-For development builds:
+### JSON
+![JSON Syntax Highlighting](screenshots/code_json.png)
 
-```bash
-npm run build:patch    # Patch version bump + build
-npm run build:minor    # Minor version bump + build
-npm run build:major    # Major version bump + build
-```
+### Python
+![Python Syntax Highlighting](screenshots/code_py.png)
 
 ## 📝 License
 
@@ -110,11 +88,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit issues and pull requests.
-
-## 📸 Screenshots
-
-*Screenshots coming soon...*
+Contributions are welcome! Please feel free to submit issues and pull requests on our [GitHub repository](https://github.com/neon-dreams/neon-dreams-theme).
 
 ---
 
