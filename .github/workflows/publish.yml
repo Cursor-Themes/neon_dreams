@@ -112,7 +112,7 @@ jobs:
 
             This release was automatically published to the VS Code Marketplace.
 
-            [📦 View on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=neon-dreams.neon-dreams-theme)
+            [📦 View on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=CursorThemes.neon-dreams-theme)
           draft: false
           prerelease: false
 

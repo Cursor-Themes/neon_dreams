@@ -71,16 +71,16 @@ A gentler variant with softer pastel tones that maintain the same beautiful colo
 ## 📸 Screenshots
 
 ### TypeScript
-![TypeScript Syntax Highlighting](screenshots/code_ts.png)
+![TypeScript Syntax Highlighting](https://raw.githubusercontent.com/Cursor-Themes/neon_dreams/main/screenshots/code_ts.png)
 
 ### JavaScript
-![JavaScript Syntax Highlighting](screenshots/code_js.png)
+![JavaScript Syntax Highlighting](https://raw.githubusercontent.com/Cursor-Themes/neon_dreams/main/screenshots/code_js.png)
 
 ### JSON
-![JSON Syntax Highlighting](screenshots/code_json.png)
+![JSON Syntax Highlighting](https://raw.githubusercontent.com/Cursor-Themes/neon_dreams/main/screenshots/code_json.png)
 
 ### Python
-![Python Syntax Highlighting](screenshots/code_py.png)
+![Python Syntax Highlighting](https://raw.githubusercontent.com/Cursor-Themes/neon_dreams/main/screenshots/code_py.png)
 
 ## 📝 License
 
@@ -88,7 +88,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit issues and pull requests on our [GitHub repository](https://github.com/neon-dreams/neon-dreams-theme).
+Contributions are welcome! Please feel free to submit issues and pull requests on our [GitHub repository](https://github.com/Cursor-Themes/neon_dreams).
 
 ---
 
