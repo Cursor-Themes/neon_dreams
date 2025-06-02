@@ -6,6 +6,10 @@ on:
     paths: ['package.json']
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: read
+
 jobs:
   detect-version-and-publish:
     runs-on: ubuntu-latest
@@ -100,33 +104,19 @@ jobs:
 
       - name: Create GitHub Release
         if: steps.version-bump.outputs.bump_type != 'none'
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.current-version.outputs.version }}
-          release_name: Release v${{ steps.current-version.outputs.version }}
-          body: |
-            🎨 **Neon Dreams Theme v${{ steps.current-version.outputs.version }}**
+        run: |
+          gh release create v${{ steps.current-version.outputs.version }} \
+            ./dist/neon-dreams-theme-${{ steps.current-version.outputs.version }}.vsix \
+            --title "Release v${{ steps.current-version.outputs.version }}" \
+            --notes "🎨 **Neon Dreams Theme v${{ steps.current-version.outputs.version }}**
 
             **Version Bump Type:** ${{ steps.version-bump.outputs.bump_type }}
 
             This release was automatically published to the VS Code Marketplace.
 
-            [📦 View on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=CursorThemes.neon-dreams-theme)
-          draft: false
-          prerelease: false
-
-      - name: Upload VSIX to Release
-        if: steps.version-bump.outputs.bump_type != 'none'
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./dist/neon-dreams-theme-${{ steps.current-version.outputs.version }}.vsix
-          asset_name: neon-dreams-theme-${{ steps.current-version.outputs.version }}.vsix
-          asset_content_type: application/zip
+            [📦 View on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=CursorThemes.neon-dreams-theme)"
 
       - name: No version change detected
         if: steps.version-bump.outputs.bump_type == 'none'
