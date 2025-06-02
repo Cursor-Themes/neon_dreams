@@ -1,0 +1,135 @@
+name: Publish to VS Code Marketplace
+
+on:
+  push:
+    branches: [main, master]
+    paths: ['package.json']
+  workflow_dispatch:
+
+jobs:
+  detect-version-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetch full history to compare versions
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Get current version
+        id: current-version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Get previous version
+        id: previous-version
+        run: |
+          # Get the previous commit's package.json version
+          git checkout HEAD~1 -- package.json 2>/dev/null || echo "0.0.0" > temp_version.txt
+          if [ -f package.json ]; then
+            PREV_VERSION=$(node -p "require('./package.json').version" 2>/dev/null || echo "0.0.0")
+          else
+            PREV_VERSION="0.0.0"
+          fi
+          echo "version=$PREV_VERSION" >> $GITHUB_OUTPUT
+          # Restore current package.json
+          git checkout HEAD -- package.json
+
+      - name: Determine version bump type
+        id: version-bump
+        run: |
+          current="${{ steps.current-version.outputs.version }}"
+          previous="${{ steps.previous-version.outputs.version }}"
+
+          echo "Current version: $current"
+          echo "Previous version: $previous"
+
+          # Parse semantic versions
+          IFS='.' read -r -a curr_parts <<< "$current"
+          IFS='.' read -r -a prev_parts <<< "$previous"
+
+          curr_major=${curr_parts[0]:-0}
+          curr_minor=${curr_parts[1]:-0}
+          curr_patch=${curr_parts[2]:-0}
+
+          prev_major=${prev_parts[0]:-0}
+          prev_minor=${prev_parts[1]:-0}
+          prev_patch=${prev_parts[2]:-0}
+
+          if [ "$curr_major" -gt "$prev_major" ]; then
+            echo "bump_type=major" >> $GITHUB_OUTPUT
+            echo "script=release:major" >> $GITHUB_OUTPUT
+          elif [ "$curr_minor" -gt "$prev_minor" ]; then
+            echo "bump_type=minor" >> $GITHUB_OUTPUT
+            echo "script=release:minor" >> $GITHUB_OUTPUT
+          elif [ "$curr_patch" -gt "$prev_patch" ]; then
+            echo "bump_type=patch" >> $GITHUB_OUTPUT
+            echo "script=release:patch" >> $GITHUB_OUTPUT
+          else
+            echo "bump_type=none" >> $GITHUB_OUTPUT
+            echo "script=build" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run determined script
+        if: steps.version-bump.outputs.bump_type != 'none'
+        run: |
+          echo "Detected ${{ steps.version-bump.outputs.bump_type }} version bump"
+          echo "Running script: ${{ steps.version-bump.outputs.script }}"
+          npm run ${{ steps.version-bump.outputs.script }}
+
+      - name: Install VSCE
+        if: steps.version-bump.outputs.bump_type != 'none'
+        run: npm install -g @vscode/vsce
+
+      - name: Publish to VS Code Marketplace
+        if: steps.version-bump.outputs.bump_type != 'none'
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          echo "Publishing version ${{ steps.current-version.outputs.version }} to marketplace..."
+          vsce publish --no-git-tag-version
+
+      - name: Create GitHub Release
+        if: steps.version-bump.outputs.bump_type != 'none'
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.current-version.outputs.version }}
+          release_name: Release v${{ steps.current-version.outputs.version }}
+          body: |
+            🎨 **Neon Dreams Theme v${{ steps.current-version.outputs.version }}**
+
+            **Version Bump Type:** ${{ steps.version-bump.outputs.bump_type }}
+
+            This release was automatically published to the VS Code Marketplace.
+
+            [📦 View on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=neon-dreams.neon-dreams-theme)
+          draft: false
+          prerelease: false
+
+      - name: Upload VSIX to Release
+        if: steps.version-bump.outputs.bump_type != 'none'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist/neon-dreams-theme-${{ steps.current-version.outputs.version }}.vsix
+          asset_name: neon-dreams-theme-${{ steps.current-version.outputs.version }}.vsix
+          asset_content_type: application/zip
+
+      - name: No version change detected
+        if: steps.version-bump.outputs.bump_type == 'none'
+        run: |
+          echo "⚠️ No version change detected. Skipping publication."
+          echo "Current version: ${{ steps.current-version.outputs.version }}"
+          echo "Previous version: ${{ steps.previous-version.outputs.version }}"
