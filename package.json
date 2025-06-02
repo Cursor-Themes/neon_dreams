@@ -23,12 +23,12 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/neon-dreams/neon-dreams-theme.git"
+        "url": "https://github.com/Cursor-Themes/neon_dreams.git"
     },
     "bugs": {
-        "url": "https://github.com/neon-dreams/neon-dreams-theme/issues"
+        "url": "https://github.com/Cursor-Themes/neon_dreams/issues"
     },
-    "homepage": "https://github.com/neon-dreams/neon-dreams-theme#readme",
+    "homepage": "https://github.com/Cursor-Themes/neon_dreams#readme",
     "license": "MIT",
     "icon": "icon.png",
     "galleryBanner": {
