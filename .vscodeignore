@@ -1,0 +1,27 @@
+# Exclude development files
+.github/
+.git/
+.gitignore
+.DS_Store
+
+# Exclude documentation that's not needed in the extension
+BUILD.md
+DEVELOPMENT.md
+GITHUB_ACTION_SETUP.md
+index.html
+
+# Exclude examples and screenshots (they're linked via GitHub URLs anyway)
+examples/
+screenshots/
+
+# Exclude build artifacts
+dist/
+node_modules/
+*.vsix
+
+# Exclude other development files
+.vscode/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
