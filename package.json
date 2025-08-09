@@ -49,16 +49,16 @@
       }
     ]
   },
-  "scripts": {
-    "build": "mkdir -p dist && npx vsce package --out dist/",
-    "build:patch": "npm version patch --no-git-tag-version && npm run build",
-    "build:minor": "npm version minor --no-git-tag-version && npm run build",
-    "build:major": "npm version major --no-git-tag-version && npm run build",
-    "package": "npm run build:patch",
-    "release:patch": "npm run build:patch && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "release:minor": "npm run build:minor && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "release:major": "npm run build:major && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
-    "clean": "rm -rf dist/*.vsix",
-    "clean:all": "rm -rf dist/"
-  }
+      "scripts": {
+        "build": "mkdir -p dist && npx @vscode/vsce package --out dist/",
+        "build:patch": "npm version patch --no-git-tag-version && npm run build",
+        "build:minor": "npm version minor --no-git-tag-version && npm run build",
+        "build:major": "npm version major --no-git-tag-version && npm run build",
+        "package": "npm run build:patch",
+        "release:patch": "npm run build:patch && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+        "release:minor": "npm run build:minor && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+        "release:major": "npm run build:major && git add . && git commit -m \"Release v$(node -p \"require('./package.json').version\")\" && git tag v$(node -p \"require('./package.json').version\")",
+        "clean": "rm -rf dist/*.vsix",
+        "clean:all": "rm -rf dist/"
+    }
 }
