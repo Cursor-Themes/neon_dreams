@@ -94,12 +94,17 @@ jobs:
         if: steps.version-bump.outputs.bump_type != 'none'
         run: npm install -g @vscode/vsce
 
+      - name: Get final version after build
+        id: final-version
+        if: steps.version-bump.outputs.bump_type != 'none'
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
       - name: Publish to VS Code Marketplace
         if: steps.version-bump.outputs.bump_type != 'none'
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          echo "Publishing version ${{ steps.current-version.outputs.version }} to marketplace..."
+          echo "Publishing version ${{ steps.final-version.outputs.version }} to marketplace..."
           vsce publish --no-git-tag-version
 
       - name: Create GitHub Release
@@ -107,10 +112,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create v${{ steps.current-version.outputs.version }} \
-            ./dist/neon-dreams-theme-${{ steps.current-version.outputs.version }}.vsix \
-            --title "Release v${{ steps.current-version.outputs.version }}" \
-            --notes "🎨 **Neon Dreams Theme v${{ steps.current-version.outputs.version }}**
+          gh release create v${{ steps.final-version.outputs.version }} \
+            ./dist/neon-dreams-theme-${{ steps.final-version.outputs.version }}.vsix \
+            --title "Release v${{ steps.final-version.outputs.version }}" \
+            --notes "🎨 **Neon Dreams Theme v${{ steps.final-version.outputs.version }}**
 
             **Version Bump Type:** ${{ steps.version-bump.outputs.bump_type }}
 
