@@ -104,8 +104,20 @@ jobs:
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
         run: |
-          echo "Publishing version ${{ steps.final-version.outputs.version }} to marketplace..."
+          echo "Publishing version ${{ steps.final-version.outputs.version }} to VS Code Marketplace..."
           vsce publish --no-git-tag-version
+
+      - name: Install OVSX CLI
+        if: steps.version-bump.outputs.bump_type != 'none'
+        run: npm install -g ovsx
+
+      - name: Publish to OpenVSX Registry
+        if: steps.version-bump.outputs.bump_type != 'none'
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
+        run: |
+          echo "Publishing version ${{ steps.final-version.outputs.version }} to OpenVSX Registry..."
+          ovsx publish ./dist/neon-dreams-theme-${{ steps.final-version.outputs.version }}.vsix -p $OVSX_PAT
 
       - name: Create GitHub Release
         if: steps.version-bump.outputs.bump_type != 'none'
@@ -119,9 +131,11 @@ jobs:
 
             **Version Bump Type:** ${{ steps.version-bump.outputs.bump_type }}
 
-            This release was automatically published to the VS Code Marketplace.
+            This release was automatically published to both the VS Code Marketplace and OpenVSX Registry.
 
-            [📦 View on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=CursorThemes.neon-dreams-theme)"
+            **Download Links:**
+            - [📦 VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=CursorThemes.neon-dreams-theme)
+            - [📦 OpenVSX Registry](https://open-vsx.org/extension/CursorThemes/neon-dreams-theme)"
 
       - name: No version change detected
         if: steps.version-bump.outputs.bump_type == 'none'

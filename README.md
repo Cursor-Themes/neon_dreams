@@ -63,12 +63,25 @@ A gentler variant with softer pastel tones that maintain the same beautiful colo
 
 ## 📦 Installation
 
+### From VS Code Marketplace
 1. Open VS Code or Cursor
 2. Go to Extensions (Ctrl+Shift+X)
 3. Search for "Neon Dreams Theme"
 4. Click Install
 5. Go to File > Preferences > Color Theme
 6. Select "Neon Dreams" or "Neon Dreams Pastel"
+
+### From OpenVSX Registry
+1. Open your compatible editor (Gitpod, Theia, VS Codium, etc.)
+2. Go to Extensions
+3. Search for "Neon Dreams Theme"
+4. Click Install
+5. Go to File > Preferences > Color Theme
+6. Select "Neon Dreams" or "Neon Dreams Pastel"
+
+### Alternative Download Links
+- **[VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=CursorThemes.neon-dreams-theme)**
+- **[OpenVSX Registry](https://open-vsx.org/extension/CursorThemes/neon-dreams-theme)**
 
 ## 📸 Screenshots
 

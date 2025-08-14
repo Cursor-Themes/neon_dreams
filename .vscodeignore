@@ -3,6 +3,7 @@
 .git/
 .gitignore
 .DS_Store
+.env
 
 # Exclude documentation that's not needed in the extension
 BUILD.md
