@@ -1,8 +1,8 @@
 {
   "name": "neon-dreams-theme",
   "displayName": "Neon Dreams Theme",
-  "description": "Beautiful developer themes with soft neon colors and pastel variants - optimized for all programming languages",
-  "version": "1.3.2",
+  "description": "Beautiful developer themes with soft neon colors, pastel and neobrutalist variants - optimized for all programming languages",
+  "version": "1.4.0",
   "publisher": "CursorThemes",
   "engines": {
     "vscode": "^1.60.0"
@@ -16,6 +16,8 @@
     "light theme",
     "pastel",
     "neon",
+    "neobrutalism",
+    "brutalist",
     "color theme",
     "syntax highlighting",
     "developer",
@@ -41,6 +43,11 @@
         "label": "Neon Dreams",
         "uiTheme": "vs-dark",
         "path": "./themes/neon-dreams-color-theme.json"
+      },
+      {
+        "label": "Neon Dreams Neobrutalist",
+        "uiTheme": "vs-dark",
+        "path": "./themes/neon-dreams-neobrutalist-color-theme.json"
       },
       {
         "label": "Neon Dreams Pastel",
